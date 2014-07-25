@@ -2,3 +2,16 @@
 
 launchctl unload /System/Library/LaunchDaemons/com.apple.mobile.installd.plist
 launchctl load /System/Library/LaunchDaemons/com.apple.mobile.installd.plist
+
+declare -a cydia
+cydia=($CYDIA)
+
+if [[ ${CYDIA+@} ]]; then
+	eval "echo 'finish:restart' >&${cydia[0]}"
+else
+	echo "Reloading SpringBoard..."
+	sleep 1
+	killall SpringBoard
+fi
+
+exit 0
